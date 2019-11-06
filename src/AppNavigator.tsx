@@ -1,20 +1,50 @@
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import HomeScreen from './HomeScreen';
-import DetailsScreen from './DetailsScreen';
+import CityList from './scenes/CityList';
+import NewCity from './scenes/NewCity';
+import LocationList from './scenes/LocationList';
+import NewLocation from './scenes/NewLocation';
+import AboutApp from './scenes/AboutApp';
+import INavigationProps from './interfaces/INavigationProps';
 
-export const NAVIGATOR_HOME = 'Home';
-export const NAVIGATOR_DETAILS = 'Details';
+export const NAVIGATOR_NEW_CITY = 'NewCity';
+export const NAVIGATOR_LIST_LOCATION = 'LocationList';
+export const NAVIGATOR_NEW_LOCATION = 'NewLocation';
 
-const AppNavigator = createStackNavigator(
+const MainStack = createStackNavigator({
+  CityList: CityList,
+  NewCity: NewCity,
+
+  LocationList: LocationList,
+  NewLocation: NewLocation,
+});
+
+// Configuração para mostrar as abas apenas na tela inicial (e não nas telas internas)
+MainStack.navigationOptions = ({ navigation }: INavigationProps) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
+
+const AboutStack = createStackNavigator({
+  AboutApp: AboutApp,
+});
+
+const AppNavigator = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Details: DetailsScreen,
+    Main: MainStack,
+    AboutApp: AboutStack,
   },
 
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Main',
   },
 );
 

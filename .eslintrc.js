@@ -29,7 +29,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
 
-    'prettier',
+    'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
     'prettier/react',
   ],
