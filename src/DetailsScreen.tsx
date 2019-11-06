@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Component = () => {
+const DetailsScreen = () => {
   return (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
-      <Text>I'm an imported file</Text>
+      <Text>Details Screen</Text>
     </View>
   );
 };
 
-export default Component;
+export default DetailsScreen;
