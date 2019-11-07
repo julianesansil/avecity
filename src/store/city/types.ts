@@ -1,12 +1,12 @@
 import { AnyAction } from 'redux';
 
-import CityEntity from '~/src/entities/CityEntity';
-import { Location } from 'istanbul-lib-coverage';
+import ICity from '~/src/interfaces/ICity';
+import ILocation from '~/src/interfaces/ILocation';
 
 // State Type
 export interface CityState {
-  cities: CityEntity[];
-  locations: Location[];
+  cities: ICity[];
+  locations: ILocation[];
 }
 
 // Action Names
@@ -20,7 +20,7 @@ export enum ActionNames {
 // Action Types
 interface AddCityAction extends AnyAction {
   type: typeof ActionNames.ADD_CITY;
-  payload: CityEntity;
+  payload: ICity;
 }
 
 export interface ActionTypes extends AddCityAction {}
