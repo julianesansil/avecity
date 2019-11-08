@@ -3,7 +3,7 @@ import { NormalizedCity } from '~/src/model/CityEntity';
 
 const INITIAL_STATE: CityState = {};
 
-function addCityEntry(state = INITIAL_STATE, action: ActionTypes): CityState {
+function addCity(state = INITIAL_STATE, action: ActionTypes): CityState {
   const { payload } = action;
   const { city } = payload;
 
@@ -45,7 +45,7 @@ export default function citiesReducer(
 
   switch (type) {
     case ActionNames.ADD_CITY:
-      return addCityEntry(state, action);
+      return addCity(state, action);
 
     case ActionNames.ADD_LOCATION:
       return addLocation(state, action);

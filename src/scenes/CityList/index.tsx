@@ -39,12 +39,12 @@ function CityList({ navigation }: NavigationProps) {
 
       <Footer>
         <Button
-          title="Nova Cidade"
+          title="Cadastrar Cidade"
           onPress={() => navigation.navigate(NAVIGATOR_NEW_CITY)}
         />
 
         <Button
-          title="Lista de Localidades"
+          title="Listar Localidades"
           onPress={() => navigation.navigate(NAVIGATOR_LIST_LOCATION)}
         />
       </Footer>

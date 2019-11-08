@@ -10,3 +10,10 @@ export function addLocation(idCity: string, location: LocationEntity) {
     payload: { idCity, location },
   };
 }
+
+export function editLocation(location: LocationEntity) {
+  return {
+    type: ActionNames.EDIT_LOCATION,
+    payload: { location },
+  };
+}

@@ -40,7 +40,7 @@ function LocationList({ navigation }: NavigationProps) {
 
       <Footer>
         <Button
-          title="Nova Localidade"
+          title="Cadastrar Localidade"
           onPress={() => navigation.navigate(NAVIGATOR_NEW_LOCATION)}
         />
       </Footer>

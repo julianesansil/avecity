@@ -9,6 +9,7 @@ export interface LocationState {
 // Action Names
 export enum ActionNames {
   ADD_LOCATION = 'ADD_LOCATION',
+  EDIT_LOCATION = 'EDIT_LOCATION',
 }
 
 // Action Types
@@ -20,4 +21,11 @@ export interface AddLocationAction extends AnyAction {
   };
 }
 
-export type ActionTypes = AddLocationAction;
+export interface EditLocationAction extends AnyAction {
+  type: typeof ActionNames.EDIT_LOCATION;
+  payload: {
+    location: LocationEntity;
+  };
+}
+
+export type ActionTypes = AddLocationAction & EditLocationAction;

@@ -7,6 +7,7 @@ import ILocation, { LocationType } from '~/src/model/LocationEntity';
 
 import { ApplicationState } from '~/src/store';
 import * as LocationsActions from '~/src/store/locations/actions';
+import * as LocationsSelectores from '~/src/store/locations/selectors';
 import * as CitiesSelectores from '~/src/store/cities/selectors';
 
 function NewLocation() {
@@ -14,10 +15,19 @@ function NewLocation() {
   const cities = useSelector((state: ApplicationState) =>
     CitiesSelectores.selectCities(state),
   );
+  const locations = useSelector((state: ApplicationState) =>
+    LocationsSelectores.selectLocationsByCity(state, cities[0].id),
+  );
   const [location, setLocation] = useState<ILocation>(new ILocation({}));
 
   function addLocation(newLocation: ILocation) {
     dispatch(LocationsActions.addLocation(cities[0].id, newLocation));
+  }
+
+  function editLocation(newLocation: ILocation) {
+    newLocation.id = locations[0].id;
+
+    dispatch(LocationsActions.editLocation(newLocation));
   }
 
   return (
@@ -52,7 +62,8 @@ function NewLocation() {
         />
       </Item>
 
-      <Button title="Adicionar Cidade" onPress={() => addLocation(location)} />
+      <Button title="Cadastrar Cidade" onPress={() => addLocation(location)} />
+      <Button title="Editar Cidade" onPress={() => editLocation(location)} />
     </Form>
   );
 }

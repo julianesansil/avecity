@@ -3,7 +3,7 @@ import { NormalizedLocation } from '~/src/model/LocationEntity';
 
 const INITIAL_STATE: LocationState = {};
 
-function addLocationEntry(
+function upsertLocation(
   state = INITIAL_STATE,
   action: ActionTypes,
 ): LocationState {
@@ -26,7 +26,8 @@ export default function locationsReducer(
 
   switch (type) {
     case ActionNames.ADD_LOCATION:
-      return addLocationEntry(state, action);
+    case ActionNames.EDIT_LOCATION:
+      return upsertLocation(state, action);
 
     default:
       return state;
