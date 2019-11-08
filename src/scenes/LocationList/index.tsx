@@ -1,41 +1,55 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Button, FlatList } from 'react-native';
-import { Container, Content, Footer } from 'native-base';
+import { Container, Content, Footer, Text } from 'native-base';
 
 import LocationItem from './components/LocationItem';
 
-import NavigationProps from '~/src/model/NavigationProps';
 import LocationEntity from '~/src/model/LocationEntity';
 
 import { ApplicationState } from '~/src/store';
-import * as LocationsActions from '~/src/store/locations/actions';
 import * as LocationsSelectores from '~/src/store/locations/selectors';
-import * as CitiesSelectores from '~/src/store/cities/selectors';
 
 import { NAVIGATOR_NEW_LOCATION } from '~/src/AppNavigator';
 
-function LocationList({ navigation }: NavigationProps) {
-  const dispatch = useDispatch();
-  const cities = useSelector((state: ApplicationState) =>
-    CitiesSelectores.selectCities(state),
-  );
-  const locations = useSelector((state: ApplicationState) =>
-    LocationsSelectores.selectLocationsByCity(state, cities[0].id),
+interface NavigationParams {
+  idCity: string;
+}
+
+function LocationList({
+  navigation,
+}: NavigationStackScreenProps<NavigationParams>) {
+  const params = navigation.state.params;
+  const idCity = params ? params.idCity : '';
+
+  const locations: LocationEntity[] = useSelector((state: ApplicationState) =>
+    LocationsSelectores.selectLocationsByCity(state, idCity),
   );
 
-  function removeLocation(idLocation: string) {
-    dispatch(LocationsActions.removeLocation(idLocation, cities[0].id));
+  function goNewLocation(idCity: string, location?: LocationEntity) {
+    navigation.navigate(NAVIGATOR_NEW_LOCATION, {
+      idCity,
+      currentLocation: location,
+    });
   }
 
   function renderLocationItem({ item }: { item: LocationEntity }) {
-    return <LocationItem location={item} />;
+    return (
+      <LocationItem
+        idCity={idCity}
+        location={item}
+        goNewLocation={goNewLocation}
+      />
+    );
   }
 
   return (
     <Container>
       <Content padder>
-        {locations && (
+        {!locations.length ? (
+          <Text>Sem localidades cadastradas</Text>
+        ) : (
           <FlatList
             keyExtractor={item => item.id}
             data={locations}
@@ -47,12 +61,7 @@ function LocationList({ navigation }: NavigationProps) {
       <Footer>
         <Button
           title="Cadastrar Localidade"
-          onPress={() => navigation.navigate(NAVIGATOR_NEW_LOCATION)}
-        />
-
-        <Button
-          title="Remover Localidade"
-          onPress={() => removeLocation(locations[0].id)}
+          onPress={() => goNewLocation(idCity)}
         />
       </Footer>
     </Container>

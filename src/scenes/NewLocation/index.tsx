@@ -1,42 +1,45 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Button } from 'react-native';
-import { Form, Item, Input, Label } from 'native-base';
+import { Form, Item, Input, Label, Text } from 'native-base';
 
 import LocationEntity, { LocationType } from '~/src/model/LocationEntity';
 
-import { ApplicationState } from '~/src/store';
 import * as LocationsActions from '~/src/store/locations/actions';
-import * as LocationsSelectores from '~/src/store/locations/selectors';
-import * as CitiesSelectores from '~/src/store/cities/selectors';
 
-function NewLocation() {
+interface NavigationParams {
+  idCity: string;
+  currentLocation: LocationEntity;
+}
+
+function NewLocation({
+  navigation,
+}: NavigationStackScreenProps<NavigationParams>) {
+  const params = navigation.state.params;
+  const idCity = params ? params.idCity : '';
+  const currentLocation = params ? params.currentLocation : undefined;
+
   const dispatch = useDispatch();
-  const cities = useSelector((state: ApplicationState) =>
-    CitiesSelectores.selectCities(state),
-  );
-  const locations = useSelector((state: ApplicationState) =>
-    LocationsSelectores.selectLocationsByCity(state, cities[0].id),
-  );
   const [location, setLocation] = useState<LocationEntity>(
-    new LocationEntity({}),
+    currentLocation ? currentLocation : new LocationEntity({}),
   );
 
-  function addLocation(newLocation: LocationEntity) {
-    dispatch(LocationsActions.addLocation(cities[0].id, newLocation));
+  function addLocation(idCity: string, newLocation: LocationEntity) {
+    dispatch(LocationsActions.addLocation(idCity, newLocation));
   }
 
   function editLocation(newLocation: LocationEntity) {
-    newLocation.id = locations[0].id;
-
     dispatch(LocationsActions.editLocation(newLocation));
   }
 
   return (
     <Form>
+      <Text>{JSON.stringify(currentLocation)}</Text>
       <Item floatingLabel>
         <Label>Nome</Label>
         <Input
+          value={location.name}
           onChangeText={text => setLocation({ ...location, name: text })}
         />
       </Item>
@@ -44,6 +47,7 @@ function NewLocation() {
       <Item floatingLabel>
         <Label>Tipo</Label>
         <Input
+          value={location.type}
           onChangeText={text =>
             setLocation({ ...location, type: LocationType.RESIDENCIAL })
           }
@@ -53,6 +57,7 @@ function NewLocation() {
       <Item floatingLabel>
         <Label>Endereço</Label>
         <Input
+          value={location.address}
           onChangeText={text => setLocation({ ...location, address: text })}
         />
       </Item>
@@ -60,12 +65,19 @@ function NewLocation() {
       <Item floatingLabel last>
         <Label>Notas</Label>
         <Input
+          value={location.notes}
           onChangeText={text => setLocation({ ...location, notes: text })}
         />
       </Item>
 
-      <Button title="Cadastrar Cidade" onPress={() => addLocation(location)} />
-      <Button title="Editar Cidade" onPress={() => editLocation(location)} />
+      <Button
+        title="Cadastrar Localidade"
+        onPress={() => addLocation(idCity, location)}
+      />
+      <Button
+        title="Editar Localidade"
+        onPress={() => editLocation(location)}
+      />
     </Form>
   );
 }

@@ -17,36 +17,40 @@ import {
 } from '~/src/AppNavigator';
 
 function CityList({ navigation }: NavigationProps) {
-  const cities = useSelector((state: ApplicationState) =>
+  const cities: CityEntity[] = useSelector((state: ApplicationState) =>
     CitiesSelectores.selectCities(state),
   );
 
+  function goNewCity() {
+    navigation.navigate(NAVIGATOR_NEW_CITY);
+  }
+
+  function goLocationList(idCity: string) {
+    navigation.navigate(NAVIGATOR_LIST_LOCATION, { idCity });
+  }
+
   function renderCityItem({ item }: { item: CityEntity }) {
-    return <CityItem city={item} />;
+    return <CityItem city={item} goLocationList={goLocationList} />;
   }
 
   return (
     <Container>
       <Content>
         <List>
-          <FlatList
-            keyExtractor={item => item.id}
-            data={cities}
-            renderItem={renderCityItem}
-          />
+          {!cities.length ? (
+            <Text>Sem cidades cadastradas</Text>
+          ) : (
+            <FlatList
+              keyExtractor={item => item.id}
+              data={cities}
+              renderItem={renderCityItem}
+            />
+          )}
         </List>
       </Content>
 
       <Footer>
-        <Button
-          title="Cadastrar Cidade"
-          onPress={() => navigation.navigate(NAVIGATOR_NEW_CITY)}
-        />
-
-        <Button
-          title="Listar Localidades"
-          onPress={() => navigation.navigate(NAVIGATOR_LIST_LOCATION)}
-        />
+        <Button title="Cadastrar Cidade" onPress={goNewCity} />
       </Footer>
     </Container>
   );

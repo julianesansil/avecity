@@ -5,11 +5,12 @@ import CityEntity from '~/src/model/CityEntity';
 
 interface Props {
   city: CityEntity;
+  goLocationList: (idCity: string) => void;
 }
 
-function CityItem({ city }: Props) {
+function CityItem({ city, goLocationList }: Props) {
   return (
-    <ListItem avatar>
+    <ListItem avatar button onPress={() => goLocationList(city.id)}>
       <Left>
         <Text>{city.countryName.substring(0, 2).toUpperCase()}</Text>
       </Left>
