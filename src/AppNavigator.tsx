@@ -7,7 +7,7 @@ import NewCity from './scenes/NewCity';
 import LocationList from './scenes/LocationList';
 import NewLocation from './scenes/NewLocation';
 import AboutApp from './scenes/AboutApp';
-import INavigationProps from './interfaces/INavigationProps';
+import NavigationProps from './model/NavigationProps';
 
 export const NAVIGATOR_NEW_CITY = 'NewCity';
 export const NAVIGATOR_LIST_LOCATION = 'LocationList';
@@ -22,7 +22,7 @@ const MainStack = createStackNavigator({
 });
 
 // Configuração para mostrar as abas apenas na tela inicial (e não nas telas internas)
-MainStack.navigationOptions = ({ navigation }: INavigationProps) => {
+MainStack.navigationOptions = ({ navigation }: NavigationProps) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
     tabBarVisible = false;

@@ -16,7 +16,13 @@ module.exports = {
     project: './tsconfig.json',
   },
 
-  plugins: ['@typescript-eslint', 'prettier', 'react', 'react-native'],
+  plugins: [
+    '@typescript-eslint',
+    'import',
+    'prettier',
+    'react',
+    'react-native',
+  ],
   extends: [
     'airbnb',
     'airbnb/hooks',

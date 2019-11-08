@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const AboutApp = () => {
+function AboutApp() {
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Text>Sobre o app</Text>
     </View>
   );
-};
+}
 
 AboutApp.navigationOptions = {
   title: 'Sobre o Aplicativo',

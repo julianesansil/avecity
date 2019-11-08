@@ -4,8 +4,8 @@ import {
   NavigationParams,
 } from 'react-navigation';
 
-interface INavigationProps {
+interface NavigationProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
-export default INavigationProps;
+export default NavigationProps;

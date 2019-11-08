@@ -1,12 +1,15 @@
-import { createStore, Store, AnyAction } from 'redux';
+import { createStore, Store, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { CityState } from './city/types';
-import cityReducer from './city/reducers';
+import citiesReducer from './cities/reducers';
+import locationsReducer from './locations/reducers';
 
-export type ApplicationState = CityState;
-const rootReducer = cityReducer;
+const rootReducer = combineReducers({
+  cities: citiesReducer,
+  locations: locationsReducer,
+});
+export type ApplicationState = ReturnType<typeof rootReducer>;
 
 // Configuração do redux-persist
 const persistConfig = {

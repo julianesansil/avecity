@@ -1,13 +1,13 @@
 import React from 'react';
 import { ListItem, Left, Body, Right, Text } from 'native-base';
 
-import ICity from '~/src/interfaces/ICity';
+import CityEntity from '~/src/model/CityEntity';
 
 interface Props {
-  city: ICity;
+  city: CityEntity;
 }
 
-const CityItem = ({ city }: Props) => {
+function CityItem({ city }: Props) {
   return (
     <ListItem avatar>
       <Left>
@@ -24,6 +24,6 @@ const CityItem = ({ city }: Props) => {
       </Right>
     </ListItem>
   );
-};
+}
 
 export default CityItem;
