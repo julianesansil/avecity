@@ -17,3 +17,10 @@ export function editLocation(location: LocationEntity) {
     payload: { location },
   };
 }
+
+export function removeLocation(idLocation: string, idCity: string) {
+  return {
+    type: ActionNames.REMOVE_LOCATION,
+    payload: { idLocation, idCity },
+  };
+}

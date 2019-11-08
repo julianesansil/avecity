@@ -25,14 +25,31 @@ function addLocation(state = INITIAL_STATE, action: ActionTypes): CityState {
   const { idCity, location } = payload;
 
   const city = state[idCity];
+  const updatedLocations = [...city.locations, location.id];
 
   return {
     ...state,
     [idCity]: {
       ...city,
-      locations: city.locations
-        ? [...city.locations, location.id]
-        : [location.id],
+      locations: updatedLocations,
+    },
+  };
+}
+
+function removeLocation(state = INITIAL_STATE, action: ActionTypes): CityState {
+  const { payload } = action;
+  const { idLocation, idCity } = payload;
+
+  const city = state[idCity];
+  const updatedLocations = city.locations.filter(
+    location => location !== idLocation,
+  );
+
+  return {
+    ...state,
+    [idCity]: {
+      ...city,
+      locations: updatedLocations,
     },
   };
 }
@@ -49,6 +66,9 @@ export default function citiesReducer(
 
     case ActionNames.ADD_LOCATION:
       return addLocation(state, action);
+
+    case ActionNames.REMOVE_LOCATION:
+      return removeLocation(state, action);
 
     default:
       return state;

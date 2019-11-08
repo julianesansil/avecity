@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native';
 import { Form, Item, Input, Label } from 'native-base';
 
-import ILocation, { LocationType } from '~/src/model/LocationEntity';
+import LocationEntity, { LocationType } from '~/src/model/LocationEntity';
 
 import { ApplicationState } from '~/src/store';
 import * as LocationsActions from '~/src/store/locations/actions';
@@ -18,13 +18,15 @@ function NewLocation() {
   const locations = useSelector((state: ApplicationState) =>
     LocationsSelectores.selectLocationsByCity(state, cities[0].id),
   );
-  const [location, setLocation] = useState<ILocation>(new ILocation({}));
+  const [location, setLocation] = useState<LocationEntity>(
+    new LocationEntity({}),
+  );
 
-  function addLocation(newLocation: ILocation) {
+  function addLocation(newLocation: LocationEntity) {
     dispatch(LocationsActions.addLocation(cities[0].id, newLocation));
   }
 
-  function editLocation(newLocation: ILocation) {
+  function editLocation(newLocation: LocationEntity) {
     newLocation.id = locations[0].id;
 
     dispatch(LocationsActions.editLocation(newLocation));

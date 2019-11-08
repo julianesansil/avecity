@@ -11,14 +11,10 @@ export function getLocation(
 export function selectLocationsByCity(
   state: ApplicationState,
   idCity: string,
-): LocationEntity[] | undefined {
+): LocationEntity[] {
   const normalizedCity = state.cities[idCity];
 
-  if (normalizedCity.locations) {
-    return normalizedCity.locations.map(idLocation =>
-      getLocation(state, idLocation),
-    );
-  }
-
-  return undefined;
+  return normalizedCity.locations.map(idLocation =>
+    getLocation(state, idLocation),
+  );
 }

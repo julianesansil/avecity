@@ -5,7 +5,7 @@ class CityEntity {
   id: string;
   name: string;
   countryName: string;
-  locations?: LocationEntity[];
+  locations: LocationEntity[];
 
   constructor(data: any) {
     this.id = data.id;
@@ -17,7 +17,7 @@ class CityEntity {
 
 export type NormalizedCity = types.Override<
   CityEntity,
-  { locations?: string[] }
+  { locations: string[] }
 >;
 
 export default CityEntity;

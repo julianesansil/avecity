@@ -6,18 +6,15 @@ export function selectCities(state: ApplicationState): CityEntity[] {
   const normalizedCities = Object.values(state.cities);
 
   return normalizedCities.map(normalizedCity => {
-    let city: CityEntity = {
+    const locations = normalizedCity.locations.map(idLocation =>
+      getLocation(state, idLocation),
+    );
+
+    return {
       id: normalizedCity.id,
       name: normalizedCity.name,
       countryName: normalizedCity.countryName,
+      locations,
     };
-
-    if (normalizedCity.locations) {
-      city.locations = normalizedCity.locations.map(idLocation =>
-        getLocation(state, idLocation),
-      );
-    }
-
-    return city;
   });
 }

@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 
 import CityEntity, { NormalizedCity } from '~/src/model/CityEntity';
-import { AddLocationAction } from '../locations/types';
+import * as LocationsTypes from '../locations/types';
 
 export interface CityState {
   [id: string]: NormalizedCity;
@@ -11,6 +11,7 @@ export interface CityState {
 export enum ActionNames {
   ADD_CITY = 'ADD_CITY',
   ADD_LOCATION = 'ADD_LOCATION',
+  REMOVE_LOCATION = 'REMOVE_LOCATION',
 }
 
 // Action Types
@@ -21,4 +22,6 @@ interface AddCityAction extends AnyAction {
   };
 }
 
-export type ActionTypes = AddCityAction & AddLocationAction;
+export type ActionTypes = AddCityAction &
+  LocationsTypes.AddLocationAction &
+  LocationsTypes.RemoveLocationAction;
