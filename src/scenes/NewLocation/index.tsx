@@ -27,6 +27,7 @@ function NewLocation({
 
   function addLocation(idCity: string, newLocation: LocationEntity) {
     dispatch(LocationsActions.addLocation(idCity, newLocation));
+    navigation.goBack();
   }
 
   function editLocation(newLocation: LocationEntity) {
