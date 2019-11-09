@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, FlatList } from 'react-native';
-import { Footer, Text, Content } from 'native-base';
+import { FlatList, Button } from 'react-native';
+import { Footer, Text } from 'native-base';
 
 import CityItem from './components/CityItem';
 
@@ -32,6 +32,7 @@ function CityList({ navigation }: NavigationProps) {
         <Text>Sem cidades cadastradas</Text>
       ) : (
         <FlatList
+          bounces={false}
           keyExtractor={item => item.id}
           data={cities}
           renderItem={renderCityItem}

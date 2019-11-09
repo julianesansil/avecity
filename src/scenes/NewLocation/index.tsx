@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { Button } from 'react-native';
-import { Form, Item, Input, Label, Picker, Icon } from 'native-base';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Button,
+} from 'react-native';
+import { Form, Picker } from 'native-base';
 
 import FormInput from '~/src/components/FormInput';
+import FormTextArea from '~/src/components/FormTextArea';
 import FormPicker from '~/src/components/FormPicker';
 
 import LocationEntity, { LocationType } from '~/src/model/LocationEntity';
@@ -45,44 +51,57 @@ function NewLocation({
   }
 
   return (
-    <Form>
-      <FormInput
-        label="Nome"
-        value={location.name}
-        onChangeText={text => setLocation({ ...location, name: text })}
-      />
+    <Form style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.select({
+          ios: 'padding',
+          android: undefined,
+        })}
+        keyboardVerticalOffset={100}>
+        <ScrollView bounces={false}>
+          <FormInput
+            label="Nome"
+            value={location.name}
+            onChangeText={text => setLocation({ ...location, name: text })}
+          />
 
-      <FormPicker
-        label="Tipo"
-        placeholder="Selecione o tipo"
-        selectedValue={location.type}
-        onValueChange={(text: LocationType) =>
-          setLocation({ ...location, type: text })
-        }>
-        <Picker.Item
-          label={LocationType.RESTAURANT}
-          value={LocationType.RESTAURANT}
-        />
+          <FormPicker
+            label="Tipo"
+            placeholder="Selecione o tipo"
+            selectedValue={location.type}
+            onValueChange={(text: LocationType) =>
+              setLocation({ ...location, type: text })
+            }>
+            <Picker.Item
+              label={LocationType.RESTAURANT}
+              value={LocationType.RESTAURANT}
+            />
 
-        <Picker.Item
-          label={LocationType.RESIDENTIAL}
-          value={LocationType.RESIDENTIAL}
-        />
+            <Picker.Item
+              label={LocationType.RESIDENTIAL}
+              value={LocationType.RESIDENTIAL}
+            />
 
-        <Picker.Item label={LocationType.OTHER} value={LocationType.OTHER} />
-      </FormPicker>
+            <Picker.Item
+              label={LocationType.OTHER}
+              value={LocationType.OTHER}
+            />
+          </FormPicker>
 
-      <FormInput
-        label="Endereço"
-        value={location.address}
-        onChangeText={text => setLocation({ ...location, address: text })}
-      />
+          <FormInput
+            label="Endereço"
+            value={location.address}
+            onChangeText={text => setLocation({ ...location, address: text })}
+          />
 
-      <FormInput
-        label="Notas"
-        value={location.notes}
-        onChangeText={text => setLocation({ ...location, notes: text })}
-      />
+          <FormTextArea
+            label="Notas"
+            value={location.notes}
+            onChangeText={text => setLocation({ ...location, notes: text })}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       {!location.id ? (
         <Button

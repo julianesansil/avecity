@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Button,
+} from 'react-native';
 import { Form } from 'native-base';
 
 import FormInput from '~/src/components/FormInput';
@@ -25,16 +30,26 @@ function NewCity({ navigation }: NavigationProps) {
   }
 
   return (
-    <Form>
-      <FormInput
-        label="Nome da cidade"
-        onChangeText={text => setCity({ ...city, name: text })}
-      />
+    <Form style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.select({
+          ios: 'padding',
+          android: undefined,
+        })}
+        keyboardVerticalOffset={100}>
+        <ScrollView bounces={false}>
+          <FormInput
+            label="Nome da cidade"
+            onChangeText={text => setCity({ ...city, name: text })}
+          />
 
-      <FormInput
-        label="Nome do país"
-        onChangeText={text => setCity({ ...city, countryName: text })}
-      />
+          <FormInput
+            label="Nome do país"
+            onChangeText={text => setCity({ ...city, countryName: text })}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <Button
         disabled={!isValidForm}
