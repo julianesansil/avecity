@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'react-native';
-import { Form, Item, Input, Label } from 'native-base';
+import { Form } from 'native-base';
 
 import FormInput from '~/src/components/FormInput';
 
@@ -13,6 +13,11 @@ import * as CityActions from '~/src/store/cities/actions';
 function NewCity({ navigation }: NavigationProps) {
   const dispatch = useDispatch();
   const [city, setCity] = useState<CityEntity>(new CityEntity({}));
+  const [isValidForm, setIsValidForm] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsValidForm(city.name && city.countryName ? true : false);
+  }, [city]);
 
   function addCity(newCity: CityEntity) {
     dispatch(CityActions.addCity(newCity));
@@ -31,7 +36,11 @@ function NewCity({ navigation }: NavigationProps) {
         onChangeText={text => setCity({ ...city, countryName: text })}
       />
 
-      <Button title="Adicionar Cidade" onPress={() => addCity(city)} />
+      <Button
+        disabled={!isValidForm}
+        title="Adicionar Cidade"
+        onPress={() => addCity(city)}
+      />
     </Form>
   );
 }

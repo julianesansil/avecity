@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Button } from 'react-native';
@@ -26,6 +26,13 @@ function NewLocation({
   const [location, setLocation] = useState<LocationEntity>(
     currentLocation || new LocationEntity({}),
   );
+  const [isValidForm, setIsValidForm] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsValidForm(
+      location.name && location.type && location.address ? true : false,
+    );
+  }, [location]);
 
   function addLocation(idCity: string, newLocation: LocationEntity) {
     dispatch(LocationsActions.addLocation(idCity, newLocation));
@@ -79,11 +86,13 @@ function NewLocation({
 
       {!location.id ? (
         <Button
+          disabled={!isValidForm}
           title="Cadastrar Localidade"
           onPress={() => addLocation(idCity, location)}
         />
       ) : (
         <Button
+          disabled={!isValidForm}
           title="Editar Localidade"
           onPress={() => editLocation(location)}
         />
