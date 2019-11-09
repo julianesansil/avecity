@@ -19,20 +19,11 @@ class CityEntity {
 
     this.createdAt = data.createdAt;
   }
-
-  getCountryInitials() {
-    if (this.countryName)
-      return this.countryName.length >= 2
-        ? this.countryName.substring(0, 2).toUpperCase()
-        : this.countryName.substring(0, 1).toUpperCase();
-
-    return '';
-  }
 }
 
-export type NormalizedCity = Omit<
-  types.Override<CityEntity, { locations: string[] }>,
-  'getCountryInitials'
+export type NormalizedCity = types.Override<
+  CityEntity,
+  { locations: string[] }
 >;
 
 export default CityEntity;

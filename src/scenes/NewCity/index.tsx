@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Button } from 'react-native';
 import { Form, Item, Input, Label } from 'native-base';
 
+import FormInput from '~/src/components/FormInput';
+
 import NavigationProps from '~/src/model/NavigationProps';
 import CityEntity from '~/src/model/CityEntity';
 
@@ -19,15 +21,15 @@ function NewCity({ navigation }: NavigationProps) {
 
   return (
     <Form>
-      <Item floatingLabel>
-        <Label>Nome da cidade</Label>
-        <Input onChangeText={text => setCity({ ...city, name: text })} />
-      </Item>
+      <FormInput
+        label="Nome da cidade"
+        onChangeText={text => setCity({ ...city, name: text })}
+      />
 
-      <Item floatingLabel last>
-        <Label>Nome do país</Label>
-        <Input onChangeText={text => setCity({ ...city, countryName: text })} />
-      </Item>
+      <FormInput
+        label="Nome do país"
+        onChangeText={text => setCity({ ...city, countryName: text })}
+      />
 
       <Button title="Adicionar Cidade" onPress={() => addCity(city)} />
     </Form>

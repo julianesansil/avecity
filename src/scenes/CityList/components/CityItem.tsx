@@ -15,6 +15,15 @@ interface Props {
 function CityItem({ city }: Props) {
   const { navigate } = useNavigation();
 
+  function getCountryInitials(countryName: string) {
+    if (countryName)
+      return countryName.length >= 2
+        ? countryName.substring(0, 2).toUpperCase()
+        : countryName.substring(0, 1).toUpperCase();
+
+    return '';
+  }
+
   function goLocationList(city: CityEntity) {
     navigate(NAVIGATOR_LIST_LOCATION, { city });
   }
@@ -22,7 +31,7 @@ function CityItem({ city }: Props) {
   return (
     <ListItem avatar button onPress={() => goLocationList(city)}>
       <Left>
-        <Text>{city.getCountryInitials()}</Text>
+        <Text>{getCountryInitials(city.countryName)}</Text>
       </Left>
 
       <Body>

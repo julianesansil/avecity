@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Button } from 'react-native';
-import { Form, Item, Input, Label, Text, Picker } from 'native-base';
+import { Form, Item, Input, Label, Picker, Icon } from 'native-base';
+
+import FormInput from '~/src/components/FormInput';
+import FormPicker from '~/src/components/FormPicker';
 
 import LocationEntity, { LocationType } from '~/src/model/LocationEntity';
 
@@ -36,49 +39,43 @@ function NewLocation({
 
   return (
     <Form>
-      <Item fixedLabel>
-        <Label>Nome</Label>
-        <Input
-          value={location.name}
-          onChangeText={text => setLocation({ ...location, name: text })}
-        />
-      </Item>
+      <FormInput
+        label="Nome"
+        value={location.name}
+        onChangeText={text => setLocation({ ...location, name: text })}
+      />
 
-      <Item picker fixedLabel>
-        <Label>Tipo</Label>
-        <Picker
-          mode="dropdown"
-          // iosIcon={<Icon name="arrow-down" />}
-          style={{ width: undefined }}
-          placeholder="Selecione o tipo"
-          placeholderStyle={{ color: '#bfc6ea' }}
-          placeholderIconColor="#007aff"
-          // selectedValue={this.state.selected2}
-          // onValueChange={this.onValueChange2.bind(this)}
-        >
-          <Picker.Item label="Wallet" value="key0" />
-          <Picker.Item label="ATM Card" value="key1" />
-          <Picker.Item label="Debit Card" value="key2" />
-          <Picker.Item label="Credit Card" value="key3" />
-          <Picker.Item label="Net Banking" value="key4" />
-        </Picker>
-      </Item>
-
-      <Item fixedLabel>
-        <Label>Endereço</Label>
-        <Input
-          value={location.address}
-          onChangeText={text => setLocation({ ...location, address: text })}
+      <FormPicker
+        label="Tipo"
+        placeholder="Selecione o tipo"
+        selectedValue={location.type}
+        onValueChange={(text: LocationType) =>
+          setLocation({ ...location, type: text })
+        }>
+        <Picker.Item
+          label={LocationType.RESTAURANT}
+          value={LocationType.RESTAURANT}
         />
-      </Item>
 
-      <Item fixedLabel last>
-        <Label>Notas</Label>
-        <Input
-          value={location.notes}
-          onChangeText={text => setLocation({ ...location, notes: text })}
+        <Picker.Item
+          label={LocationType.RESIDENTIAL}
+          value={LocationType.RESIDENTIAL}
         />
-      </Item>
+
+        <Picker.Item label={LocationType.OTHER} value={LocationType.OTHER} />
+      </FormPicker>
+
+      <FormInput
+        label="Endereço"
+        value={location.address}
+        onChangeText={text => setLocation({ ...location, address: text })}
+      />
+
+      <FormInput
+        label="Notas"
+        value={location.notes}
+        onChangeText={text => setLocation({ ...location, notes: text })}
+      />
 
       {!location.id ? (
         <Button

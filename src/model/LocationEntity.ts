@@ -1,9 +1,9 @@
 import moment from 'moment';
 
 export enum LocationType {
-  RESTAURANTE = 'Restaurante',
-  RESIDENCIAL = 'Residencial',
-  OUTRO = 'Outro',
+  RESTAURANT = 'Restaurante',
+  RESIDENTIAL = 'Residencial',
+  OTHER = 'Outro',
 }
 
 class LocationEntity {
