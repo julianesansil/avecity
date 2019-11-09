@@ -34,4 +34,8 @@ function NewCity({ navigation }: NavigationProps) {
   );
 }
 
+NewCity.navigationOptions = {
+  title: 'Cidade',
+};
+
 export default NewCity;

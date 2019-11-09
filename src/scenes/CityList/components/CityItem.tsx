@@ -1,18 +1,28 @@
 import React from 'react';
+import { useNavigation } from 'react-navigation-hooks';
 import { ListItem, Left, Body, Right, Text } from 'native-base';
+
+import PeriodToNow from '~/src/components/PeriodToNow';
 
 import CityEntity from '~/src/model/CityEntity';
 
+import { NAVIGATOR_LIST_LOCATION } from '~/src/AppNavigator';
+
 interface Props {
   city: CityEntity;
-  goLocationList: (idCity: string) => void;
 }
 
-function CityItem({ city, goLocationList }: Props) {
+function CityItem({ city }: Props) {
+  const { navigate } = useNavigation();
+
+  function goLocationList(city: CityEntity) {
+    navigate(NAVIGATOR_LIST_LOCATION, { city });
+  }
+
   return (
-    <ListItem avatar button onPress={() => goLocationList(city.id)}>
+    <ListItem avatar button onPress={() => goLocationList(city)}>
       <Left>
-        <Text>{city.countryName.substring(0, 2).toUpperCase()}</Text>
+        <Text>{city.getCountryInitials()}</Text>
       </Left>
 
       <Body>
@@ -21,7 +31,7 @@ function CityItem({ city, goLocationList }: Props) {
       </Body>
 
       <Right>
-        <Text note>3:43 pm</Text>
+        <PeriodToNow date={city.createdAt} />
       </Right>
     </ListItem>
   );

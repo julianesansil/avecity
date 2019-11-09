@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Button } from 'react-native';
-import { Form, Item, Input, Label, Text } from 'native-base';
+import { Form, Item, Input, Label, Text, Picker } from 'native-base';
 
 import LocationEntity, { LocationType } from '~/src/model/LocationEntity';
 
@@ -16,13 +16,12 @@ interface NavigationParams {
 function NewLocation({
   navigation,
 }: NavigationStackScreenProps<NavigationParams>) {
-  const params = navigation.state.params;
-  const idCity = params ? params.idCity : '';
-  const currentLocation = params ? params.currentLocation : undefined;
+  const idCity = navigation.getParam('idCity');
+  const currentLocation = navigation.getParam('currentLocation');
 
   const dispatch = useDispatch();
   const [location, setLocation] = useState<LocationEntity>(
-    currentLocation ? currentLocation : new LocationEntity({}),
+    currentLocation || new LocationEntity({}),
   );
 
   function addLocation(idCity: string, newLocation: LocationEntity) {
@@ -32,12 +31,12 @@ function NewLocation({
 
   function editLocation(newLocation: LocationEntity) {
     dispatch(LocationsActions.editLocation(newLocation));
+    navigation.goBack();
   }
 
   return (
     <Form>
-      <Text>{JSON.stringify(currentLocation)}</Text>
-      <Item floatingLabel>
+      <Item fixedLabel>
         <Label>Nome</Label>
         <Input
           value={location.name}
@@ -45,17 +44,27 @@ function NewLocation({
         />
       </Item>
 
-      <Item floatingLabel>
+      <Item picker fixedLabel>
         <Label>Tipo</Label>
-        <Input
-          value={location.type}
-          onChangeText={text =>
-            setLocation({ ...location, type: LocationType.RESIDENCIAL })
-          }
-        />
+        <Picker
+          mode="dropdown"
+          // iosIcon={<Icon name="arrow-down" />}
+          style={{ width: undefined }}
+          placeholder="Selecione o tipo"
+          placeholderStyle={{ color: '#bfc6ea' }}
+          placeholderIconColor="#007aff"
+          // selectedValue={this.state.selected2}
+          // onValueChange={this.onValueChange2.bind(this)}
+        >
+          <Picker.Item label="Wallet" value="key0" />
+          <Picker.Item label="ATM Card" value="key1" />
+          <Picker.Item label="Debit Card" value="key2" />
+          <Picker.Item label="Credit Card" value="key3" />
+          <Picker.Item label="Net Banking" value="key4" />
+        </Picker>
       </Item>
 
-      <Item floatingLabel>
+      <Item fixedLabel>
         <Label>Endereço</Label>
         <Input
           value={location.address}
@@ -63,7 +72,7 @@ function NewLocation({
         />
       </Item>
 
-      <Item floatingLabel last>
+      <Item fixedLabel last>
         <Label>Notas</Label>
         <Input
           value={location.notes}
@@ -71,16 +80,23 @@ function NewLocation({
         />
       </Item>
 
-      <Button
-        title="Cadastrar Localidade"
-        onPress={() => addLocation(idCity, location)}
-      />
-      <Button
-        title="Editar Localidade"
-        onPress={() => editLocation(location)}
-      />
+      {!location.id ? (
+        <Button
+          title="Cadastrar Localidade"
+          onPress={() => addLocation(idCity, location)}
+        />
+      ) : (
+        <Button
+          title="Editar Localidade"
+          onPress={() => editLocation(location)}
+        />
+      )}
     </Form>
   );
 }
+
+NewLocation.navigationOptions = {
+  title: 'Localidade',
+};
 
 export default NewLocation;

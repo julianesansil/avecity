@@ -12,6 +12,7 @@ function addCity(state = INITIAL_STATE, action: ActionTypes): CityState {
     name: city.name,
     countryName: city.countryName,
     locations: [],
+    createdAt: city.createdAt,
   };
 
   return {

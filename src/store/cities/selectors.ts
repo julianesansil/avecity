@@ -10,11 +10,12 @@ export function selectCities(state: ApplicationState): CityEntity[] {
       getLocation(state, idLocation),
     );
 
-    return {
+    return new CityEntity({
       id: normalizedCity.id,
       name: normalizedCity.name,
       countryName: normalizedCity.countryName,
       locations,
-    };
+      createdAt: normalizedCity.createdAt,
+    });
   });
 }

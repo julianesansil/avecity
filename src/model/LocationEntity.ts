@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export enum LocationType {
   RESTAURANTE = 'Restaurante',
   RESIDENCIAL = 'Residencial',
@@ -11,12 +13,16 @@ class LocationEntity {
   address: string;
   notes?: string;
 
+  createdAt: moment.Moment;
+
   constructor(data: any) {
     this.id = data.id;
     this.name = data.name;
     this.type = data.type;
     this.address = data.address;
     this.notes = data.notes;
+
+    this.createdAt = data.createdAt;
   }
 }
 
