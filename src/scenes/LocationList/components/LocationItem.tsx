@@ -1,16 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from 'react-navigation-hooks';
-import { TouchableOpacity, Button } from 'react-native';
-import { Card, CardItem, Text, Body } from 'native-base';
+import { TouchableOpacity, Platform } from 'react-native';
+import { Card, CardItem, Text, Body, Button, View, Icon } from 'native-base';
 
 import PeriodToNow from '~/src/components/PeriodToNow';
+import StyledText, {
+  StyledButtonText,
+  StyledTitle,
+} from '~/src/components/StyledText';
 
 import LocationEntity from '~/src/model/LocationEntity';
 
 import * as LocationsActions from '~/src/store/locations/actions';
 
 import { NAVIGATOR_NEW_LOCATION } from '~/src/AppNavigator';
+import { colors } from '~/src/styles/theme';
 
 interface Props {
   idCity: string;
@@ -37,31 +42,59 @@ function LocationItem({ idCity, location }: Props) {
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={() => goNewLocation(idCity, location)}>
-        <CardItem header bordered>
-          <Text style={{ fontFamily: 'Raleway-Regular', color: '#6f42c1' }}>
-            {location.name}
-          </Text>
-          <PeriodToNow date={location.createdAt} />
-        </CardItem>
+        <View style={{ padding: 14 }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <StyledTitle style={{ flex: 0.8 }}>{location.name}</StyledTitle>
+            <PeriodToNow date={location.createdAt} />
+          </View>
 
-        <CardItem bordered>
-          <Body>
-            <Text>{location.address}</Text>
-            <Text>{location.notes}</Text>
-          </Body>
-        </CardItem>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+            <Icon name="pin" style={{ fontSize: 15, color: colors.PURPLE }} />
+            <StyledText style={{ marginTop: 8, marginLeft: 10 }}>
+              {location.address}
+            </StyledText>
+          </View>
+
+          {location.notes && (
+            <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+              <Icon
+                name="text"
+                style={{ fontSize: 15, color: colors.PURPLE }}
+              />
+              <StyledText style={{ marginTop: 8, marginLeft: 10 }}>
+                {location.notes}
+              </StyledText>
+            </View>
+          )}
+        </View>
       </TouchableOpacity>
 
-      <CardItem footer bordered>
-        <Button
-          title="Editar Localidade"
-          onPress={() => goNewLocation(idCity, location)}
-        />
+      <CardItem footer bordered style={{ flex: 1 }}>
+        <View
+          style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <Button
+            transparent
+            style={{ height: Platform.select({ ios: 25, android: 22 }) }}
+            onPress={() => goNewLocation(idCity, location)}>
+            <StyledButtonText>EDITAR</StyledButtonText>
+          </Button>
 
-        <Button
-          title="Remover Localidade"
-          onPress={() => removeLocation(location.id, idCity)}
-        />
+          <Button
+            transparent
+            style={{
+              height: Platform.select({ ios: 25, android: 22 }),
+              marginLeft: 15,
+            }}
+            onPress={() => removeLocation(location.id, idCity)}>
+            <StyledButtonText>REMOVER</StyledButtonText>
+          </Button>
+        </View>
       </CardItem>
     </Card>
   );

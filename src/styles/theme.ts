@@ -2,6 +2,7 @@ export const fonts = {
   REGULAR: 'Raleway-Regular',
   MEDIUM: 'Raleway-Medium',
   SEMIBOLD: 'Raleway-SemiBold',
+  BOLD: 'Raleway-Bold',
   EXTRABOLD: 'Raleway-ExtraBold',
 };
 

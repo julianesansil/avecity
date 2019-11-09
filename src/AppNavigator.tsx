@@ -20,13 +20,17 @@ export const NAVIGATOR_LIST_LOCATION = 'LocationList';
 export const NAVIGATOR_NEW_LOCATION = 'NewLocation';
 
 // Cidades
-const CitiesStack = createStackNavigator({
-  CityList: CityList,
-  NewCity: NewCity,
+const CitiesStack = createStackNavigator(
+  {
+    CityList,
+    NewCity,
 
-  LocationList: LocationList,
-  NewLocation: NewLocation,
-});
+    LocationList,
+    NewLocation,
+  },
+
+  { initialRouteName: 'CityList' },
+);
 
 CitiesStack.navigationOptions = ({ navigation }: NavigationProps) => {
   // Configuração para mostrar as abas apenas na tela inicial (e não nas telas internas)
@@ -40,21 +44,21 @@ CitiesStack.navigationOptions = ({ navigation }: NavigationProps) => {
     title: 'Cidades',
     tabBarIcon: ({ focused }: { focused: boolean }) => {
       const color = focused ? colors.PURPLE : colors.LIGHT_GRAY;
-      return <StyledIcon name="md-globe" color={color} />;
+      return <StyledIcon name="globe" color={color} />;
     },
   };
 };
 
 // Sobre
 const AboutStack = createStackNavigator({
-  AboutApp: AboutApp,
+  AboutApp,
 });
 
 AboutStack.navigationOptions = {
   title: 'Sobre',
   tabBarIcon: ({ focused }: { focused: boolean }) => {
     const color = focused ? colors.PURPLE : colors.LIGHT_GRAY;
-    return <StyledIcon name="md-information-circle-outline" color={color} />;
+    return <StyledIcon name="information-circle-outline" color={color} />;
   },
 };
 
@@ -73,7 +77,7 @@ const AppNavigator = createBottomTabNavigator(
       inactiveTintColor: colors.LIGHT_GRAY,
       labelStyle: {
         fontFamily: fonts.REGULAR,
-        fontSize: 11,
+        fontSize: Platform.select({ ios: 13, android: 11 }),
         marginBottom: Platform.select({ ios: 0, android: 5 }),
       },
     },

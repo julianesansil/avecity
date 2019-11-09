@@ -1,10 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { Button, FlatList, SectionList } from 'react-native';
-import { Footer, Text } from 'native-base';
+import { SectionList, SectionListData, SafeAreaView, View } from 'react-native';
+import { Text } from 'native-base';
 
+import FloatingButton from '~/src/components/FloatingButton';
 import LocationItem from './components/LocationItem';
+import { StyledSectionTitle } from '~/src/components/StyledText';
 
 import SectionData from '~/src/model/SectionData';
 import LocationEntity from '~/src/model/LocationEntity';
@@ -13,8 +15,8 @@ import CityEntity from '~/src/model/CityEntity';
 import { ApplicationState } from '~/src/store';
 import * as LocationsSelectores from '~/src/store/locations/selectors';
 
+import { fonts, colors } from '~/src/styles/theme';
 import { NAVIGATOR_NEW_LOCATION } from '~/src/AppNavigator';
-import { string } from 'prop-types';
 
 interface NavigationParams {
   city: CityEntity;
@@ -25,36 +27,10 @@ function LocationList({
 }: NavigationStackScreenProps<NavigationParams>) {
   const city = navigation.getParam('city');
 
-  const locations: LocationEntity[] = useSelector((state: ApplicationState) =>
-    LocationsSelectores.selectLocationsByCity(state, city.id),
+  const locationsSection: SectionData<LocationEntity[]>[] = useSelector(
+    (state: ApplicationState) =>
+      LocationsSelectores.groupLocationsByType(state, city.id),
   );
-  const [locationsSection, setLocationsByCity] = useState();
-
-  useEffect(() => {
-    setLocationsByCity(groupLocationsByType(locations));
-  }, []);
-
-  function groupLocationsByType(
-    locations: LocationEntity[],
-  ): SectionData<LocationEntity[]>[] {
-    let locationsMap = new Map<string, LocationEntity[]>();
-    locations.forEach(location => {
-      const key = location.type;
-      const data = locationsMap.get(location.type) || [];
-
-      locationsMap.set(key, [...data, { ...location }]);
-    });
-
-    let locationsByType: SectionData<LocationEntity[]>[] = [];
-    for (let [key, value] of locationsMap) {
-      locationsByType.push({
-        title: key,
-        data: value,
-      });
-    }
-
-    return locationsByType;
-  }
 
   function goNewLocation(idCity: string) {
     navigation.navigate(NAVIGATOR_NEW_LOCATION, {
@@ -62,32 +38,37 @@ function LocationList({
     });
   }
 
+  function renderSectionHeader({
+    section: { title },
+  }: {
+    section: SectionListData<SectionData<LocationEntity[]>>;
+  }) {
+    return <StyledSectionTitle>{title.toUpperCase()}</StyledSectionTitle>;
+  }
+
   function renderLocationItem({ item }: { item: LocationEntity }) {
     return <LocationItem idCity={city.id} location={item} />;
   }
 
   return (
-    <Fragment>
-      {!locations.length ? (
-        <Text>Sem localidades cadastradas</Text>
-      ) : (
-        <SectionList
-          bounces={false}
-          contentContainerStyle={{ margin: 16 }}
-          keyExtractor={(item, index) => item + index}
-          sections={locationsSection}
-          renderItem={renderLocationItem}
-          renderSectionHeader={({ section: { title } }) => <Text>{title}</Text>}
-        />
-      )}
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        {!locationsSection.length ? (
+          <Text>Sem localidades cadastradas</Text>
+        ) : (
+          <SectionList
+            bounces={false}
+            contentContainerStyle={{ marginHorizontal: 16, paddingBottom: 16 }}
+            keyExtractor={(item, index) => item + index}
+            sections={locationsSection}
+            renderItem={renderLocationItem}
+            renderSectionHeader={renderSectionHeader}
+          />
+        )}
 
-      <Footer>
-        <Button
-          title="Cadastrar Localidade"
-          onPress={() => goNewLocation(city.id)}
-        />
-      </Footer>
-    </Fragment>
+        <FloatingButton onPress={() => goNewLocation(city.id)} />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -95,7 +76,18 @@ LocationList.navigationOptions = ({
   navigation,
 }: NavigationStackScreenProps<NavigationParams>) => {
   const city = navigation.getParam('city');
-  return { title: city.name, headerBackTitle: null };
+  return {
+    title: city.name,
+    headerBackTitle: null,
+    headerStyle: {
+      backgroundColor: colors.PURPLE,
+    },
+    headerTintColor: colors.WHITE,
+    headerTitleStyle: {
+      fontFamily: fonts.MEDIUM,
+      fontSize: 20,
+    },
+  };
 };
 
 export default LocationList;

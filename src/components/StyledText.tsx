@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 import { fonts, colors } from '~/src/styles/theme';
 
 const StyledText = styled.Text`
-  font-family: ${fonts.REGULAR};
-  font-size: 12;
+  font-family: ${fonts.MEDIUM};
+  font-size: ${Platform.select({ ios: 15, android: 13 })};
   color: ${colors.LIGHT_GRAY};
 `;
 
@@ -23,9 +23,30 @@ export const StyledSubtitle = styled.Text`
   margin-top: 4;
 `;
 
+export const StyledSectionTitle = styled.Text`
+  font-family: ${fonts.BOLD};
+  font-size: ${Platform.select({ ios: 16, android: 15 })};
+  color: ${colors.ORANGE};
+
+  margin-top: 20;
+  margin-bottom: 5;
+  padding-vertical: 5;
+
+  background-color: ${colors.WHITE};
+  text-align: center;
+  border-width: 0.5;
+  border-color: ${colors.ORANGE};
+`;
+
+export const StyledButtonText = styled.Text`
+  font-family: ${fonts.MEDIUM};
+  font-size: ${Platform.select({ ios: 14, android: 13 })};
+  color: ${colors.DARK_GRAY};
+`;
+
 export const StyledTimeText = styled.Text`
   font-family: ${fonts.REGULAR};
-  font-size: ${Platform.select({ ios: 13, android: 12 })};
+  font-size: ${Platform.select({ ios: 14, android: 12 })};
   color: ${colors.LIGHT_GRAY};
 `;
 
