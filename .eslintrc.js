@@ -19,9 +19,9 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'import',
-    'prettier',
     'react',
     'react-native',
+    'prettier',
   ],
   extends: [
     'airbnb',

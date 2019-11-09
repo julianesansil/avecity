@@ -38,7 +38,9 @@ function LocationItem({ idCity, location }: Props) {
         activeOpacity={0.5}
         onPress={() => goNewLocation(idCity, location)}>
         <CardItem header bordered>
-          <Text>{location.name}</Text>
+          <Text style={{ fontFamily: 'Raleway-Regular', color: '#6f42c1' }}>
+            {location.name}
+          </Text>
           <PeriodToNow date={location.createdAt} />
         </CardItem>
 

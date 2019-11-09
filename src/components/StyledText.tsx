@@ -1,0 +1,40 @@
+import { Platform } from 'react-native';
+import styled from 'styled-components/native';
+
+import { fonts, colors } from '~/src/styles/theme';
+
+const StyledText = styled.Text`
+  font-family: ${fonts.REGULAR};
+  font-size: 12;
+  color: ${colors.LIGHT_GRAY};
+`;
+
+export const StyledTitle = styled.Text`
+  font-family: ${fonts.SEMIBOLD};
+  font-size: ${Platform.select({ ios: 17, android: 16 })};
+  color: ${colors.DARK_GRAY};
+`;
+
+export const StyledSubtitle = styled.Text`
+  font-family: ${fonts.MEDIUM};
+  font-size: ${Platform.select({ ios: 15, android: 14 })};
+  color: ${colors.LIGHT_GRAY};
+
+  margin-top: 4;
+`;
+
+export const StyledTimeText = styled.Text`
+  font-family: ${fonts.REGULAR};
+  font-size: ${Platform.select({ ios: 13, android: 12 })};
+  color: ${colors.LIGHT_GRAY};
+`;
+
+export const StyledBadgeText = styled.Text`
+  font-family: ${fonts.EXTRABOLD};
+  font-size: 14;
+  color: ${colors.WHITE};
+
+  text-align: center;
+`;
+
+export default StyledText;

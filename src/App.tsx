@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { YellowBox } from 'react-native';
 import Moment from 'react-moment';
 import moment from 'moment/min/moment-with-locales';
 
@@ -13,6 +14,8 @@ Moment.globalMoment = moment;
 
 // Configura o locale padrão do react-moment
 Moment.globalLocale = 'pt-br';
+
+YellowBox.ignoreWarnings(['Warning: componentWillReceiveProps']);
 
 const App = () => {
   return (

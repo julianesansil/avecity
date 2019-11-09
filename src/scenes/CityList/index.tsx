@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { FlatList, Button } from 'react-native';
-import { Footer, Text } from 'native-base';
+import { FlatList } from 'react-native';
+import { Text } from 'native-base';
 
+import AnimatedHomeHeader from '~/src/components/AnimatedHomeHeader';
+import FloatingButton from '~/src/components/FloatingButton';
 import CityItem from './components/CityItem';
 
 import NavigationProps from '~/src/model/NavigationProps';
@@ -28,26 +30,26 @@ function CityList({ navigation }: NavigationProps) {
 
   return (
     <Fragment>
-      {!cities.length ? (
-        <Text>Sem cidades cadastradas</Text>
-      ) : (
-        <FlatList
-          bounces={false}
-          keyExtractor={item => item.id}
-          data={cities}
-          renderItem={renderCityItem}
-        />
-      )}
+      <AnimatedHomeHeader title="Cidades">
+        {!cities.length ? (
+          <Text style={{}}>Sem cidades cadastradas</Text>
+        ) : (
+          <FlatList
+            bounces={false}
+            keyExtractor={item => item.id}
+            data={cities}
+            renderItem={renderCityItem}
+          />
+        )}
+      </AnimatedHomeHeader>
 
-      <Footer>
-        <Button title="Cadastrar Cidade" onPress={goNewCity} />
-      </Footer>
+      <FloatingButton onPress={goNewCity} />
     </Fragment>
   );
 }
 
 CityList.navigationOptions = {
-  title: 'Cidades',
+  header: null,
   headerBackTitle: null,
 };
 

@@ -1,8 +1,14 @@
 import React from 'react';
 import { useNavigation } from 'react-navigation-hooks';
-import { ListItem, Left, Body, Right, Text } from 'native-base';
+import { ListItem, Left, Body, Right } from 'native-base';
 
 import PeriodToNow from '~/src/components/PeriodToNow';
+import {
+  StyledTitle,
+  StyledSubtitle,
+  StyledBadgeText,
+} from '~/src/components/StyledText';
+import StyledBadge from '~/src/components/StyledBadge';
 
 import CityEntity from '~/src/model/CityEntity';
 
@@ -29,17 +35,25 @@ function CityItem({ city }: Props) {
   }
 
   return (
-    <ListItem avatar button onPress={() => goLocationList(city)}>
+    <ListItem
+      avatar
+      button
+      style={{ paddingVertical: 2 }}
+      onPress={() => goLocationList(city)}>
       <Left>
-        <Text>{getCountryInitials(city.countryName)}</Text>
+        <StyledBadge>
+          <StyledBadgeText>
+            {getCountryInitials(city.countryName)}
+          </StyledBadgeText>
+        </StyledBadge>
       </Left>
 
-      <Body>
-        <Text>{city.name}</Text>
-        <Text note>{city.countryName}</Text>
+      <Body style={{ paddingLeft: 5, paddingBottom: 12 }}>
+        <StyledTitle>{city.name}</StyledTitle>
+        <StyledSubtitle>{city.countryName}</StyledSubtitle>
       </Body>
 
-      <Right>
+      <Right style={{ paddingBottom: 12 }}>
         <PeriodToNow date={city.createdAt} />
       </Right>
     </ListItem>
