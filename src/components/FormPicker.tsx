@@ -1,6 +1,9 @@
 import React from 'react';
 import { Item, Picker, Label, Icon, NativeBase } from 'native-base';
 
+import StyledText from './StyledText';
+import { colors, fonts } from '../styles/theme';
+
 interface Props {
   children: JSX.Element[];
   label: string;
@@ -17,17 +20,26 @@ function FormPicker({
   onValueChange,
 }: Props) {
   return (
-    <Item picker fixedLabel>
-      <Label>{label}</Label>
+    <Item picker fixedLabel style={{ marginVertical: 5 }}>
+      <StyledText style={{ width: 140 }}>{label}</StyledText>
+
       <Picker
         mode="dropdown"
-        style={{ width: undefined }}
+        style={{
+          width: 245,
+          borderBottomWidth: 1,
+          borderColor: colors.LIGHT_GRAY,
+          fontFamily: fonts.MEDIUM,
+          fontSize: 15,
+        }}
         iosIcon={<Icon name="arrow-down" />}
         placeholder={placeholder}
         placeholderStyle={{ color: '#bfc6ea' }}
         placeholderIconColor="#007aff"
         selectedValue={selectedValue}
-        onValueChange={onValueChange}>
+        onValueChange={onValueChange}
+        headerBackButtonText="Voltar"
+        iosHeader="Selecione um">
         {children}
       </Picker>
     </Item>

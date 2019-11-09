@@ -1,5 +1,8 @@
 import React from 'react';
-import { Item, Input, Label } from 'native-base';
+import { Item, Input } from 'native-base';
+
+import StyledText from './StyledText';
+import { colors, fonts } from '../styles/theme';
 
 interface Props {
   label: string;
@@ -10,8 +13,18 @@ interface Props {
 function FormInput({ label, value, onChangeText }: Props) {
   return (
     <Item fixedLabel>
-      <Label>{label}</Label>
-      <Input value={value} onChangeText={onChangeText} />
+      <StyledText style={{ width: 140 }}>{label}</StyledText>
+
+      <Input
+        value={value}
+        onChangeText={onChangeText}
+        style={{
+          borderBottomWidth: 1,
+          borderColor: colors.LIGHT_GRAY,
+          fontFamily: fonts.MEDIUM,
+          fontSize: 15,
+        }}
+      />
     </Item>
   );
 }

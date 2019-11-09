@@ -54,18 +54,25 @@ function LocationItem({ idCity, location }: Props) {
             <PeriodToNow date={location.createdAt} />
           </View>
 
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-            <Icon name="pin" style={{ fontSize: 15, color: colors.PURPLE }} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+            }}>
+            <Icon
+              name="pin"
+              style={{ fontSize: 15, color: colors.PURPLE, paddingTop: 9 }}
+            />
             <StyledText style={{ marginTop: 8, marginLeft: 10 }}>
               {location.address}
             </StyledText>
           </View>
 
           {location.notes && (
-            <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
               <Icon
                 name="text"
-                style={{ fontSize: 15, color: colors.PURPLE }}
+                style={{ fontSize: 15, color: colors.PURPLE, paddingTop: 10 }}
               />
               <StyledText style={{ marginTop: 8, marginLeft: 10 }}>
                 {location.notes}

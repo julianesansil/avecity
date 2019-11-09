@@ -34,7 +34,7 @@ export const StyledSectionTitle = styled.Text`
 
   background-color: ${colors.WHITE};
   text-align: center;
-  border-width: 0.5;
+  border-width: 0.3;
   border-color: ${colors.ORANGE};
 `;
 
