@@ -58,23 +58,26 @@ function LocationItem({ idCity, location }: Props) {
             style={{
               flexDirection: 'row',
               alignItems: 'flex-start',
+              marginTop: 14,
             }}>
-            <Icon
-              name="pin"
-              style={{ fontSize: 15, color: colors.PURPLE, paddingTop: 9 }}
-            />
-            <StyledText style={{ marginTop: 8, marginLeft: 10 }}>
+            <Icon name="pin" style={{ fontSize: 15, color: colors.PURPLE }} />
+            <StyledText style={{ marginLeft: 10 }}>
               {location.address}
             </StyledText>
           </View>
 
           {location.notes && (
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                marginTop: 8,
+              }}>
               <Icon
                 name="text"
-                style={{ fontSize: 15, color: colors.PURPLE, paddingTop: 10 }}
+                style={{ fontSize: 15, color: colors.PURPLE }}
               />
-              <StyledText style={{ marginTop: 8, marginLeft: 10 }}>
+              <StyledText style={{ marginLeft: 10 }}>
                 {location.notes}
               </StyledText>
             </View>

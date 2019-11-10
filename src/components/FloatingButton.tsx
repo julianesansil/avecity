@@ -15,7 +15,7 @@ function FloatingButton({ onPress }: Props) {
       offsetY={15}
       offsetX={20}
       onPress={onPress}
-      renderIcon={() => <Icon name="md-add" style={{ color: colors.WHITE }} />}
+      renderIcon={() => <Icon name="add" style={{ color: colors.WHITE }} />}
     />
   );
 }
