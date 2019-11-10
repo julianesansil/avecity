@@ -33,7 +33,7 @@ function NewLocation({
 
   const dispatch = useDispatch();
   const [location, setLocation] = useState<LocationEntity>(
-    currentLocation || new LocationEntity({}),
+    currentLocation || new LocationEntity({ type: LocationType.OTHER }),
   );
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
 

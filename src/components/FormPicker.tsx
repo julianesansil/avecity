@@ -24,7 +24,7 @@ function FormPicker({
       <StyledText style={{ width: 140 }}>{label}</StyledText>
 
       <Picker
-        mode="dropdown"
+        // mode="dropdown"
         style={{
           width: 245,
           borderBottomWidth: 1,
@@ -32,7 +32,6 @@ function FormPicker({
           fontFamily: fonts.MEDIUM,
           fontSize: 15,
         }}
-        iosIcon={<Icon name="arrow-down" />}
         placeholder={placeholder}
         placeholderStyle={{ color: '#bfc6ea' }}
         placeholderIconColor="#007aff"

@@ -6,7 +6,10 @@ import { Text } from 'native-base';
 
 import FloatingButton from '~/src/components/FloatingButton';
 import LocationItem from './components/LocationItem';
-import { StyledSectionTitle } from '~/src/components/StyledText';
+import {
+  StyledSectionTitle,
+  StyledCenteredText,
+} from '~/src/components/StyledText';
 
 import SectionData from '~/src/model/SectionData';
 import LocationEntity from '~/src/model/LocationEntity';
@@ -54,7 +57,11 @@ function LocationList({
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         {!locationsSection.length ? (
-          <Text>Sem localidades cadastradas</Text>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <StyledCenteredText style={{ paddingBottom: 50 }}>
+              Sem localidades cadastradas
+            </StyledCenteredText>
+          </View>
         ) : (
           <SectionList
             bounces={false}

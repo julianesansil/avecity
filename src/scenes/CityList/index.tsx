@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { FlatList } from 'react-native';
-import { Text } from 'native-base';
+import { FlatList, View } from 'react-native';
 
 import AnimatedHomeHeader from '~/src/components/AnimatedHomeHeader';
 import FloatingButton from '~/src/components/FloatingButton';
@@ -14,6 +13,7 @@ import { ApplicationState } from '~/src/store';
 import * as CitiesSelectores from '~/src/store/cities/selectors';
 
 import { NAVIGATOR_NEW_CITY } from '~/src/AppNavigator';
+import { StyledCenteredText } from '~/src/components/StyledText';
 
 function CityList({ navigation }: NavigationProps) {
   const cities: CityEntity[] = useSelector((state: ApplicationState) =>
@@ -32,7 +32,11 @@ function CityList({ navigation }: NavigationProps) {
     <Fragment>
       <AnimatedHomeHeader title="Cidades">
         {!cities.length ? (
-          <Text style={{}}>Sem cidades cadastradas</Text>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <StyledCenteredText style={{ paddingBottom: 50 }}>
+              Sem cidades cadastradas
+            </StyledCenteredText>
+          </View>
         ) : (
           <FlatList
             bounces={false}

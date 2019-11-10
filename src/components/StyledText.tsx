@@ -58,4 +58,12 @@ export const StyledBadgeText = styled.Text`
   text-align: center;
 `;
 
+export const StyledCenteredText = styled.Text`
+  font-family: ${fonts.BOLD};
+  font-size: 20;
+  color: ${colors.ORANGE};
+
+  text-align: center;
+`;
+
 export default StyledText;
