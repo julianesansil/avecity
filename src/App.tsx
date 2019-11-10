@@ -17,7 +17,10 @@ Moment.globalMoment = moment;
 // Configura o locale padrão do react-moment
 Moment.globalLocale = 'pt-br';
 
-YellowBox.ignoreWarnings(['Warning: componentWillReceiveProps']);
+YellowBox.ignoreWarnings([
+  'Warning: componentWillReceiveProps',
+  'Warning: RCTBridge',
+]);
 
 const App = () => {
   return (

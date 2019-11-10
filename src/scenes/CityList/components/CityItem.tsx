@@ -1,14 +1,11 @@
 import React from 'react';
-import { useNavigation } from 'react-navigation-hooks';
 import { ListItem, Left, Body, Right } from 'native-base';
+import { useNavigation } from 'react-navigation-hooks';
+import styled from 'styled-components/native';
 
 import PeriodToNow from '~/src/components/PeriodToNow';
-import {
-  StyledTitle,
-  StyledSubtitle,
-  StyledBadgeText,
-} from '~/src/components/StyledText';
-import StyledBadge from '~/src/components/StyledBadge';
+import SCText, { SCTitle, StyledBadgeText } from '~/src/components/SCText';
+import SCBadge from '~/src/components/SCBadge';
 
 import CityEntity from '~/src/model/CityEntity';
 
@@ -35,29 +32,42 @@ function CityItem({ city }: Props) {
   }
 
   return (
-    <ListItem
-      avatar
-      button
-      style={{ paddingVertical: 2 }}
-      onPress={() => goLocationList(city)}>
+    <SCListItem avatar button onPress={() => goLocationList(city)}>
       <Left>
-        <StyledBadge>
+        <SCBadge>
           <StyledBadgeText>
             {getCountryInitials(city.countryName)}
           </StyledBadgeText>
-        </StyledBadge>
+        </SCBadge>
       </Left>
 
-      <Body style={{ paddingLeft: 5, paddingBottom: 12 }}>
-        <StyledTitle>{city.name}</StyledTitle>
-        <StyledSubtitle>{city.countryName}</StyledSubtitle>
-      </Body>
+      <SCBody>
+        <SCTitle>{city.name}</SCTitle>
+        <SCSubtitle>{city.countryName}</SCSubtitle>
+      </SCBody>
 
-      <Right style={{ paddingBottom: 12 }}>
+      <SCRight>
         <PeriodToNow date={city.createdAt} />
-      </Right>
-    </ListItem>
+      </SCRight>
+    </SCListItem>
   );
 }
+
+const SCListItem = styled(ListItem)`
+  padding-vertical: 2;
+`;
+
+const SCBody = styled(Body)`
+  padding-left: 5;
+  padding-bottom: 12;
+`;
+
+const SCRight = styled(Right)`
+  padding-bottom: 12;
+`;
+
+const SCSubtitle = styled(SCText)`
+  margin-top: 4;
+`;
 
 export default CityItem;

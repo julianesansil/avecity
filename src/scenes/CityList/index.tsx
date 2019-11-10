@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
+import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
-import { FlatList, View } from 'react-native';
 
 import AnimatedHomeHeader from '~/src/components/AnimatedHomeHeader';
 import FloatingButton from '~/src/components/FloatingButton';
 import CityItem from './components/CityItem';
+import { SCCentralizedContainer } from '~/src/components/SCContainer';
+import { StyledWarningText } from '~/src/components/SCText';
 
 import NavigationProps from '~/src/model/NavigationProps';
 import CityEntity from '~/src/model/CityEntity';
@@ -12,8 +14,8 @@ import CityEntity from '~/src/model/CityEntity';
 import { ApplicationState } from '~/src/store';
 import * as CitiesSelectores from '~/src/store/cities/selectors';
 
+import { noHeader } from '~/src/styles/headerStyle';
 import { NAVIGATOR_NEW_CITY } from '~/src/AppNavigator';
-import { StyledCenteredText } from '~/src/components/StyledText';
 
 function CityList({ navigation }: NavigationProps) {
   const cities: CityEntity[] = useSelector((state: ApplicationState) =>
@@ -32,11 +34,9 @@ function CityList({ navigation }: NavigationProps) {
     <Fragment>
       <AnimatedHomeHeader title="Cidades">
         {!cities.length ? (
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <StyledCenteredText style={{ paddingBottom: 50 }}>
-              Sem cidades cadastradas
-            </StyledCenteredText>
-          </View>
+          <SCCentralizedContainer marginTop>
+            <StyledWarningText>Sem cidades cadastradas</StyledWarningText>
+          </SCCentralizedContainer>
         ) : (
           <FlatList
             bounces={false}
@@ -52,9 +52,6 @@ function CityList({ navigation }: NavigationProps) {
   );
 }
 
-CityList.navigationOptions = {
-  header: null,
-  headerBackTitle: null,
-};
+CityList.navigationOptions = noHeader;
 
 export default CityList;

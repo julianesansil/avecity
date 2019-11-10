@@ -1,15 +1,16 @@
-import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { SectionList, SectionListData, View } from 'react-native';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { SectionList, SectionListData, SafeAreaView, View } from 'react-native';
-import { Text } from 'native-base';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components/native';
 
 import FloatingButton from '~/src/components/FloatingButton';
 import LocationItem from './components/LocationItem';
-import {
-  StyledSectionTitle,
-  StyledCenteredText,
-} from '~/src/components/StyledText';
+import SCContainer, {
+  SCSafeContainer,
+  SCCentralizedContainer,
+} from '~/src/components/SCContainer';
+import { SCOrangeTitle, StyledWarningText } from '~/src/components/SCText';
 
 import SectionData from '~/src/model/SectionData';
 import LocationEntity from '~/src/model/LocationEntity';
@@ -18,8 +19,10 @@ import CityEntity from '~/src/model/CityEntity';
 import { ApplicationState } from '~/src/store';
 import * as LocationsSelectores from '~/src/store/locations/selectors';
 
-import { fonts, colors } from '~/src/styles/theme';
+import { colors } from '~/src/styles/theme';
+import baseHeader from '~/src/styles/headerStyle';
 import { NAVIGATOR_NEW_LOCATION } from '~/src/AppNavigator';
+import { Text } from 'native-base';
 
 interface NavigationParams {
   city: CityEntity;
@@ -46,7 +49,7 @@ function LocationList({
   }: {
     section: SectionListData<SectionData<LocationEntity[]>>;
   }) {
-    return <StyledSectionTitle>{title.toUpperCase()}</StyledSectionTitle>;
+    return <SCSectionTitle>{title.toUpperCase()}</SCSectionTitle>;
   }
 
   function renderLocationItem({ item }: { item: LocationEntity }) {
@@ -54,18 +57,15 @@ function LocationList({
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
+    <SCSafeContainer>
+      <SCContainer>
         {!locationsSection.length ? (
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <StyledCenteredText style={{ paddingBottom: 50 }}>
-              Sem localidades cadastradas
-            </StyledCenteredText>
-          </View>
+          <SCCentralizedContainer marginBottom>
+            <StyledWarningText>Sem localidades cadastradas</StyledWarningText>
+          </SCCentralizedContainer>
         ) : (
-          <SectionList
+          <SCSectionList
             bounces={false}
-            contentContainerStyle={{ marginHorizontal: 16, paddingBottom: 16 }}
             keyExtractor={(item, index) => item + index}
             sections={locationsSection}
             renderItem={renderLocationItem}
@@ -74,10 +74,26 @@ function LocationList({
         )}
 
         <FloatingButton onPress={() => goNewLocation(city.id)} />
-      </View>
-    </SafeAreaView>
+      </SCContainer>
+    </SCSafeContainer>
   );
 }
+
+const SCSectionList = styled(SectionList)`
+  margin-horizontal: 16;
+  padding-bottom: 16;
+`;
+
+const SCSectionTitle = styled(SCOrangeTitle)`
+  text-align: center;
+  margin-top: 20;
+  margin-bottom: 5;
+  padding-vertical: 5;
+
+  border-width: 0.3;
+  border-color: ${colors.ORANGE};
+  background-color: ${colors.WHITE};
+`;
 
 LocationList.navigationOptions = ({
   navigation,
@@ -85,15 +101,7 @@ LocationList.navigationOptions = ({
   const city = navigation.getParam('city');
   return {
     title: city.name,
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: colors.PURPLE,
-    },
-    headerTintColor: colors.WHITE,
-    headerTitleStyle: {
-      fontFamily: fonts.MEDIUM,
-      fontSize: 20,
-    },
+    ...baseHeader,
   };
 };
 

@@ -17,6 +17,8 @@ export function addLocation(idCity: string, location: LocationEntity) {
 }
 
 export function editLocation(location: LocationEntity) {
+  location.createdAt = moment(new Date());
+
   return {
     type: ActionNames.EDIT_LOCATION,
     payload: { location },

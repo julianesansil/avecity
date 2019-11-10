@@ -1,8 +1,9 @@
 import React from 'react';
-import { Item, Input } from 'native-base';
+import { Item, Textarea } from 'native-base';
+import styled from 'styled-components/native';
 
-import StyledText from './StyledText';
-import { colors, fonts } from '../styles/theme';
+import SCText, { SCInputText } from './SCText';
+import { colors } from '../styles/theme';
 
 interface Props {
   label: string;
@@ -13,20 +14,37 @@ interface Props {
 function FormInput({ label, value, onChangeText }: Props) {
   return (
     <Item fixedLabel>
-      <StyledText style={{ width: 140 }}>{label}</StyledText>
+      <SCLabel>{label}</SCLabel>
+      <SCInputText value={value} onChangeText={onChangeText} />
+    </Item>
+  );
+}
 
-      <Input
+export function FormTextArea({ label, value, onChangeText }: Props) {
+  return (
+    <Item fixedLabel>
+      <SCLabel>{label}</SCLabel>
+
+      <SCTextArea
+        rowSpan={4}
+        bordered={false}
+        underline={false}
         value={value}
         onChangeText={onChangeText}
-        style={{
-          borderBottomWidth: 1,
-          borderColor: colors.LIGHT_GRAY,
-          fontFamily: fonts.MEDIUM,
-          fontSize: 15,
-        }}
       />
     </Item>
   );
 }
+
+const SCLabel = styled(SCText)`
+  width: 140;
+`;
+
+const SCTextArea = styled(Textarea)`
+  ${SCInputText};
+  flex: 1;
+  padding-top: 16;
+  padding-left: 6;
+`;
 
 export default FormInput;

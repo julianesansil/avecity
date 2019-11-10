@@ -1,16 +1,17 @@
 import React from 'react';
+import { Platform } from 'react-native';
+import { Icon } from 'native-base';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
-import { Icon } from 'native-base';
 
 import CityList from './scenes/CityList';
 import NewCity from './scenes/NewCity';
 import LocationList from './scenes/LocationList';
 import NewLocation from './scenes/NewLocation';
 import AboutApp from './scenes/AboutApp';
+
 import NavigationProps from './model/NavigationProps';
 
 import { fonts, colors } from '~/src/styles/theme';
@@ -44,7 +45,7 @@ CitiesStack.navigationOptions = ({ navigation }: NavigationProps) => {
     title: 'Cidades',
     tabBarIcon: ({ focused }: { focused: boolean }) => {
       const color = focused ? colors.PURPLE : colors.LIGHT_GRAY;
-      return <StyledIcon name="globe" color={color} />;
+      return <SCIcon name="globe" color={color} />;
     },
   };
 };
@@ -58,7 +59,7 @@ AboutStack.navigationOptions = {
   title: 'Sobre',
   tabBarIcon: ({ focused }: { focused: boolean }) => {
     const color = focused ? colors.PURPLE : colors.LIGHT_GRAY;
-    return <StyledIcon name="information-circle-outline" color={color} />;
+    return <SCIcon name="information-circle-outline" color={color} />;
   },
 };
 
@@ -84,7 +85,7 @@ const AppNavigator = createBottomTabNavigator(
   },
 );
 
-export const StyledIcon = styled(Icon)`
+export const SCIcon = styled(Icon)`
   font-size: 25;
   margin-top: ${Platform.select({ ios: 5, android: 3 })};
 

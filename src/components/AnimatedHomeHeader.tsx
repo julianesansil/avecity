@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import AnimatedHeader from 'react-native-animated-header';
 
 import { colors } from '~/src/styles/theme';
@@ -13,23 +13,40 @@ interface Props {
 function AnimatedHomeHeader({ children, title }: Props) {
   return (
     <AnimatedHeader
-      style={{ flex: 1 }}
-      title={title}
-      titleStyle={{
-        fontSize: Platform.select({ ios: 28, android: 26 }),
-        left: 26,
-        bottom: 20,
-        color: colors.WHITE,
-      }}
-      backStyle={{ marginLeft: 20 }}
-      backTextStyle={{ fontSize: 20, color: colors.BLACK }}
+      style={styles.animatedHeader}
+      titleStyle={styles.title}
+      backTextStyle={styles.backText}
+      backStyle={styles.back}
       headerMaxHeight={Platform.select({ ios: 200, android: 150 })}
-      imageSource={bgImage}
       toolbarColor={colors.PURPLE}
+      title={title}
+      imageSource={bgImage}
       disabled={false}>
       {children}
     </AnimatedHeader>
   );
 }
+
+const styles = StyleSheet.create({
+  animatedHeader: {
+    flex: 1,
+  },
+
+  title: {
+    fontSize: Platform.select({ ios: 28, android: 26 }),
+    left: 26,
+    bottom: 20,
+    color: colors.WHITE,
+  },
+
+  backText: {
+    fontSize: 20,
+    color: colors.BLACK,
+  },
+
+  back: {
+    marginLeft: 20,
+  },
+});
 
 export default AnimatedHomeHeader;

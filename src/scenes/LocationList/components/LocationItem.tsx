@@ -1,21 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { Platform, TouchableOpacity } from 'react-native';
+import { Card, CardItem, Button } from 'native-base';
 import { useNavigation } from 'react-navigation-hooks';
-import { TouchableOpacity, Platform } from 'react-native';
-import { Card, CardItem, Text, Body, Button, View, Icon } from 'native-base';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components/native';
 
 import PeriodToNow from '~/src/components/PeriodToNow';
-import StyledText, {
-  StyledButtonText,
-  StyledTitle,
-} from '~/src/components/StyledText';
+import LocationInfoItem from './LocationInfoItem';
+import { SCTitle, StyledLinkButtonText } from '~/src/components/SCText';
 
 import LocationEntity from '~/src/model/LocationEntity';
 
 import * as LocationsActions from '~/src/store/locations/actions';
 
 import { NAVIGATOR_NEW_LOCATION } from '~/src/AppNavigator';
-import { colors } from '~/src/styles/theme';
 
 interface Props {
   idCity: string;
@@ -38,76 +36,66 @@ function LocationItem({ idCity, location }: Props) {
   }
 
   return (
-    <Card>
+    <Card style={{ flex: 1 }}>
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={() => goNewLocation(idCity, location)}>
-        <View style={{ padding: 14 }}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <StyledTitle style={{ flex: 0.8 }}>{location.name}</StyledTitle>
+        <SCBody>
+          <SCBodyHeader>
+            <SCTitle style={{ flex: 0.8 }}>{location.name}</SCTitle>
             <PeriodToNow date={location.createdAt} />
-          </View>
+          </SCBodyHeader>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              marginTop: 14,
-            }}>
-            <Icon name="pin" style={{ fontSize: 15, color: colors.PURPLE }} />
-            <StyledText style={{ marginLeft: 10 }}>
-              {location.address}
-            </StyledText>
-          </View>
-
+          <LocationInfoItem first nameIcon="pin" infoText={location.address} />
           {location.notes && (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                marginTop: 8,
-              }}>
-              <Icon
-                name="text"
-                style={{ fontSize: 15, color: colors.PURPLE }}
-              />
-              <StyledText style={{ marginLeft: 10 }}>
-                {location.notes}
-              </StyledText>
-            </View>
+            <LocationInfoItem
+              padding
+              nameIcon="text"
+              infoText={location.notes}
+            />
           )}
-        </View>
+        </SCBody>
       </TouchableOpacity>
 
-      <CardItem footer bordered style={{ flex: 1 }}>
-        <View
-          style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-          <Button
-            transparent
-            style={{ height: Platform.select({ ios: 25, android: 22 }) }}
-            onPress={() => goNewLocation(idCity, location)}>
-            <StyledButtonText>EDITAR</StyledButtonText>
-          </Button>
+      <SCFooter bordered footer>
+        <SCButton
+          first
+          transparent
+          onPress={() => goNewLocation(idCity, location)}>
+          <StyledLinkButtonText>EDITAR</StyledLinkButtonText>
+        </SCButton>
 
-          <Button
-            transparent
-            style={{
-              height: Platform.select({ ios: 25, android: 22 }),
-              marginLeft: 15,
-            }}
-            onPress={() => removeLocation(location.id, idCity)}>
-            <StyledButtonText>REMOVER</StyledButtonText>
-          </Button>
-        </View>
-      </CardItem>
+        <SCButton
+          transparent
+          onPress={() => removeLocation(location.id, idCity)}>
+          <StyledLinkButtonText>REMOVER</StyledLinkButtonText>
+        </SCButton>
+      </SCFooter>
     </Card>
   );
 }
+
+const SCBody = styled.View`
+  padding-vertical: 14;
+  padding-horizontal: 14;
+`;
+
+const SCFooter = styled(CardItem)`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const SCBodyHeader = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const SCButton = styled(Button)`
+  height: ${Platform.select({ ios: 26, android: 22 })};
+  margin-left: ${(props: { first?: boolean }) => (props.first ? 0 : 15)};
+`;
 
 export default LocationItem;

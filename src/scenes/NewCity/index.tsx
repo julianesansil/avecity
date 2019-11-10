@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  SafeAreaView,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  View,
-} from 'react-native';
-import { Button } from 'native-base';
+import styled from 'styled-components/native';
 
+import FormKeyboardAvoiding from '~/src/components/FormKeyboardAvoiding';
 import FormInput from '~/src/components/FormInput';
-import { StyledTitle } from '~/src/components/StyledText';
+import FormButton from '~/src/components/FormButton';
+import { SCSafeContainer } from '~/src/components/SCContainer';
 
 import NavigationProps from '~/src/model/NavigationProps';
 import CityEntity from '~/src/model/CityEntity';
 
 import * as CityActions from '~/src/store/cities/actions';
 
-import { fonts, colors } from '~/src/styles/theme';
+import baseHeader from '~/src/styles/headerStyle';
 
 function NewCity({ navigation }: NavigationProps) {
   const dispatch = useDispatch();
@@ -34,56 +29,38 @@ function NewCity({ navigation }: NavigationProps) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.select({
-          ios: 'padding',
-          android: undefined,
-        })}
-        keyboardVerticalOffset={100}>
-        <ScrollView bounces={false}>
-          <View style={{ paddingHorizontal: 16, marginTop: 100 }}>
-            <FormInput
-              label="Nome da cidade"
-              onChangeText={text => setCity({ ...city, name: text })}
-            />
+    <SCSafeContainer>
+      <FormKeyboardAvoiding>
+        <SCForm>
+          <FormInput
+            label="Nome da cidade"
+            onChangeText={text => setCity({ ...city, name: text })}
+          />
 
-            <FormInput
-              label="Nome do país"
-              onChangeText={text => setCity({ ...city, countryName: text })}
-            />
+          <FormInput
+            label="Nome do país"
+            onChangeText={text => setCity({ ...city, countryName: text })}
+          />
 
-            <Button
-              block
-              disabled={!isValidForm}
-              style={{
-                marginTop: 50,
-                backgroundColor: colors.ORANGE,
-                opacity: isValidForm ? 1 : 0.4,
-              }}
-              onPress={() => addCity(city)}>
-              <StyledTitle style={{ color: colors.WHITE }}>
-                CADASTRAR
-              </StyledTitle>
-            </Button>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <FormButton
+            disabled={!isValidForm}
+            title="CADASTRAR"
+            onPress={() => addCity(city)}
+          />
+        </SCForm>
+      </FormKeyboardAvoiding>
+    </SCSafeContainer>
   );
 }
 
+const SCForm = styled.View`
+  margin-top: 100;
+  padding-horizontal: 16;
+`;
+
 NewCity.navigationOptions = {
   title: 'Cidade',
-  headerStyle: {
-    backgroundColor: colors.PURPLE,
-  },
-  headerTintColor: colors.WHITE,
-  headerTitleStyle: {
-    fontFamily: fonts.MEDIUM,
-    fontSize: 20,
-  },
+  ...baseHeader,
 };
 
 export default NewCity;

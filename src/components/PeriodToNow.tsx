@@ -1,9 +1,8 @@
 import React from 'react';
-import { Text } from 'react-native';
 import Moment from 'react-moment';
 import moment from 'moment';
 
-import { StyledTimeText } from './StyledText';
+import { StyledDetailText } from './SCText';
 
 interface Props {
   date: moment.Moment;
@@ -11,11 +10,9 @@ interface Props {
 
 function PeriodToNow({ date }: Props) {
   return (
-    <StyledTimeText>
-      <Moment element={Text} fromNow>
-        {date.toString()}
-      </Moment>
-    </StyledTimeText>
+    <Moment element={StyledDetailText} fromNow>
+      {date.toString()}
+    </Moment>
   );
 }
 
