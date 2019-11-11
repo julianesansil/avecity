@@ -19,10 +19,11 @@ function CityItem({ city }: Props) {
   const { navigate } = useNavigation();
 
   function getCountryInitials(countryName: string) {
-    if (countryName)
+    if (countryName) {
       return countryName.length >= 2
         ? countryName.substring(0, 2).toUpperCase()
-        : countryName.substring(0, 1).toUpperCase();
+        : countryName.substring(0, 3).toUpperCase();
+    }
 
     return '';
   }
