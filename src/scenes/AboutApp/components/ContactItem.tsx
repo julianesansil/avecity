@@ -31,14 +31,14 @@ const SCContainer = styled.View`
   align-items: center;
 `;
 
-const SCIcon = styled(Icon)`
+export const SCIcon = styled(Icon)`
   font-size: 20;
   color: ${colors.PURPLE};
 
   padding-top: 6;
 `;
 
-const SCContactText = styled(SCText)`
+export const SCContactText = styled(SCText)`
   margin-left: 10;
   text-decoration-line: underline;
 
