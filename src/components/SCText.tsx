@@ -25,6 +25,7 @@ export const SCOrangeTitle = styled.Text`
 export const SCInputText = styled(Input)`
   font-family: ${fonts.MEDIUM};
   font-size: 15;
+  color: ${colors.DARK_GRAY};
 
   border-bottom-width: 1;
   border-color: ${colors.LIGHT_GRAY};

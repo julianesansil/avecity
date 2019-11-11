@@ -18,8 +18,9 @@ Moment.globalMoment = moment;
 Moment.globalLocale = 'pt-br';
 
 YellowBox.ignoreWarnings([
-  'Warning: componentWillReceiveProps',
   'Warning: RCTBridge',
+  'Warning: componentWillMount',
+  'Warning: componentWillReceiveProps',
 ]);
 
 const App = () => {

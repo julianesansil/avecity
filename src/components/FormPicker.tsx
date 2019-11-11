@@ -19,16 +19,16 @@ function FormPicker({ children, label, selectedValue, onValueChange }: Props) {
 
       <Picker
         // mode="dropdown"
+        selectedValue={selectedValue}
+        onValueChange={onValueChange}
+        iosHeader="Selecione um"
+        headerBackButtonText="Voltar"
         style={styles.picker}
         textStyle={[styles.defaultFont, styles.selectedText]}
         itemTextStyle={styles.defaultFont}
         headerStyle={styles.modalHeader}
         headerBackButtonTextStyle={[styles.defaultFont, styles.modalHeaderText]}
-        headerTitleStyle={[styles.defaultFont, styles.modalHeaderText]}
-        iosHeader="Selecione um"
-        headerBackButtonText="Voltar"
-        selectedValue={selectedValue}
-        onValueChange={onValueChange}>
+        headerTitleStyle={[styles.defaultFont, styles.modalHeaderText]}>
         {children}
       </Picker>
     </Item>

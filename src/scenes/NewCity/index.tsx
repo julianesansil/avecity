@@ -11,8 +11,10 @@ import NavigationProps from '~/src/model/NavigationProps';
 import CityEntity from '~/src/model/CityEntity';
 
 import * as CityActions from '~/src/store/cities/actions';
+import { getCityAndCountry } from '~/src/helpers/placesHelper';
 
 import baseHeader from '~/src/styles/headerStyle';
+import { NAVIGATOR_PLACE_SEARCH } from '~/src/AppNavigator';
 
 function NewCity({ navigation }: NavigationProps) {
   const dispatch = useDispatch();
@@ -28,17 +30,36 @@ function NewCity({ navigation }: NavigationProps) {
     navigation.goBack();
   }
 
+  function onPlaceSelected(data: any) {
+    const cityAndCountry = getCityAndCountry(data);
+    setCity({
+      ...city,
+      name: cityAndCountry.cityName,
+      countryName: cityAndCountry.countryName,
+    });
+  }
+
+  function goPlacesSearch() {
+    navigation.navigate(NAVIGATOR_PLACE_SEARCH, {
+      type: 'city',
+      onPlaceSelected,
+    });
+  }
+
   return (
     <SCSafeContainer>
       <FormKeyboardAvoiding>
         <SCForm>
           <FormInput
             label="Nome da cidade"
+            value={city.name}
             onChangeText={text => setCity({ ...city, name: text })}
+            onFocus={goPlacesSearch}
           />
 
           <FormInput
             label="Nome do país"
+            value={city.countryName}
             onChangeText={text => setCity({ ...city, countryName: text })}
           />
 

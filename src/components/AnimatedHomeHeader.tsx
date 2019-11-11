@@ -13,15 +13,14 @@ interface Props {
 function AnimatedHomeHeader({ children, title }: Props) {
   return (
     <AnimatedHeader
+      title={title}
+      imageSource={bgImage}
+      toolbarColor={colors.PURPLE}
+      headerMaxHeight={Platform.select({ ios: 200, android: 150 })}
       style={styles.animatedHeader}
       titleStyle={styles.title}
       backTextStyle={styles.backText}
-      backStyle={styles.back}
-      headerMaxHeight={Platform.select({ ios: 200, android: 150 })}
-      toolbarColor={colors.PURPLE}
-      title={title}
-      imageSource={bgImage}
-      disabled={false}>
+      backStyle={styles.back}>
       {children}
     </AnimatedHeader>
   );

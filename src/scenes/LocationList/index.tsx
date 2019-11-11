@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, SectionListData, View } from 'react-native';
+import { SectionList, SectionListData } from 'react-native';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
@@ -22,7 +22,6 @@ import * as LocationsSelectores from '~/src/store/locations/selectors';
 import { colors } from '~/src/styles/theme';
 import baseHeader from '~/src/styles/headerStyle';
 import { NAVIGATOR_NEW_LOCATION } from '~/src/AppNavigator';
-import { Text } from 'native-base';
 
 interface NavigationParams {
   city: CityEntity;

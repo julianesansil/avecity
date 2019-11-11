@@ -3,19 +3,23 @@ import { Item, Textarea } from 'native-base';
 import styled from 'styled-components/native';
 
 import SCText, { SCInputText } from './SCText';
-import { colors } from '../styles/theme';
 
 interface Props {
   label: string;
   value?: any;
   onChangeText: (text: string) => void;
+  onFocus?: () => void;
 }
 
-function FormInput({ label, value, onChangeText }: Props) {
+function FormInput({ label, value, onChangeText, onFocus }: Props) {
   return (
     <Item fixedLabel>
       <SCLabel>{label}</SCLabel>
-      <SCInputText value={value} onChangeText={onChangeText} />
+      <SCInputText
+        value={value}
+        onChangeText={onChangeText}
+        onFocus={onFocus}
+      />
     </Item>
   );
 }

@@ -12,11 +12,11 @@ interface Props {
 function FloatingButton({ onPress }: Props) {
   return (
     <ActionButton
+      onPress={onPress}
+      buttonColor={colors.PURPLE}
+      renderIcon={() => <SCIcon name="md-add" />}
       offsetY={15}
       offsetX={20}
-      buttonColor={colors.PURPLE}
-      onPress={onPress}
-      renderIcon={() => <SCIcon name="md-add" />}
     />
   );
 }

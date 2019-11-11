@@ -10,6 +10,7 @@ import CityList from './scenes/CityList';
 import NewCity from './scenes/NewCity';
 import LocationList from './scenes/LocationList';
 import NewLocation from './scenes/NewLocation';
+import PlaceSearch from './scenes/PlaceSearch';
 import AboutApp from './scenes/AboutApp';
 
 import NavigationProps from './model/NavigationProps';
@@ -18,6 +19,7 @@ import { fonts, colors } from '~/src/styles/theme';
 
 export const NAVIGATOR_NEW_CITY = 'NewCity';
 export const NAVIGATOR_LIST_LOCATION = 'LocationList';
+export const NAVIGATOR_PLACE_SEARCH = 'PlaceSearch';
 export const NAVIGATOR_NEW_LOCATION = 'NewLocation';
 
 // Cidades
@@ -28,6 +30,8 @@ const CitiesStack = createStackNavigator(
 
     LocationList,
     NewLocation,
+
+    PlaceSearch,
   },
 
   { initialRouteName: 'CityList' },

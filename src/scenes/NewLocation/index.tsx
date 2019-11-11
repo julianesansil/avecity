@@ -12,9 +12,10 @@ import { SCSafeContainer } from '~/src/components/SCContainer';
 
 import LocationEntity, { LocationType } from '~/src/model/LocationEntity';
 import * as LocationsActions from '~/src/store/locations/actions';
+import { getLocationAndAddress } from '~/src/helpers/placesHelper';
 
-import { fonts, colors } from '~/src/styles/theme';
 import baseHeader from '~/src/styles/headerStyle';
+import { NAVIGATOR_PLACE_SEARCH } from '~/src/AppNavigator';
 
 interface NavigationParams {
   idCity: string;
@@ -49,6 +50,22 @@ function NewLocation({
     navigation.goBack();
   }
 
+  function onPlaceSelected(data: any) {
+    const locationAndAddress = getLocationAndAddress(data);
+    setLocation({
+      ...location,
+      name: locationAndAddress.locationName,
+      address: locationAndAddress.address,
+    });
+  }
+
+  function goPlacesSearch() {
+    navigation.navigate(NAVIGATOR_PLACE_SEARCH, {
+      type: 'establishment',
+      onPlaceSelected,
+    });
+  }
+
   return (
     <SCSafeContainer>
       <FormKeyboardAvoiding>
@@ -57,6 +74,7 @@ function NewLocation({
             label="Nome"
             value={location.name}
             onChangeText={text => setLocation({ ...location, name: text })}
+            onFocus={goPlacesSearch}
           />
 
           <FormPicker
