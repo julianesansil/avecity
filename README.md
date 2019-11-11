@@ -1,5 +1,7 @@
 # Avecity
 
+Aplicativo para mapeamento de cidades e respectivas localidades.
+
 ## Sumário
 
 1. [Checklist](#checklist)
@@ -39,7 +41,15 @@
 
 ## Release
 
-- APK: https://github.com/julianesansil/avecity/releases/tag/0.0.1
+#### APK
+
+https://github.com/julianesansil/avecity/releases/tag/0.0.1
+
+#### Telas
+
+<pre>
+<img src="gifs/01.gif" width="23%"/>   <img src="gifs/02.gif" width="23%"/>   <img src="gifs/03.gif" width="23%"/>   <img src="gifs/04.gif" width="23%"/>
+</pre>
 
 <a name="instalacao"></a>
 
@@ -76,7 +86,7 @@
 
 ## Teste
 
-- npm run test
+- `npm run test ContactItem`
 
 <a name="dependencias"></a>
 
